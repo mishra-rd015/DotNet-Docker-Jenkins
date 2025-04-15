@@ -1,0 +1,8 @@
+subscription_id = "4947feb5-b5f6-4284-acce-df1b262aedb0"
+client_id       = "16a790e6-0069-4397-af16-1c0f0ca9a9bf"
+client_secret   = "1uh8Q~cqe5mOctpJHyVuyFFRjo6Q9vrx3ED9wceM"
+tenant_id       = "2ab9811e-8172-4cd1-bf22-858c28b732da"
+acr_name        = "dotnetacr-rudram123"
+resource_group_name = "dotnet-rg"
+location        = "East US"
+aks_name        = "dotnet-aks"
