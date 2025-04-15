@@ -10,7 +10,7 @@ pipeline {
         RESOURCE_GROUP = 'dotnet-rg'
         AKS_CLUSTER = 'dotnet-aks'
         TF_WORKING_DIR = 'terraform'
-        TERRAFORM_PATH = '"E:\\Download Brave\\terraform_1.11.3_windows_386\\terraform.exe"'
+        TERRAFORM_PATH = 'E:\\Download Brave\\terraform_1.11.3_windows_386\\terraform.exe'  // Removed extra quotes
     }
 
     stages {
@@ -22,13 +22,13 @@ pipeline {
 
         stage('Build .NET App') {
             steps {
-                bat 'dotnet publish MyApiApp/MyApiApp.csproj -c Release -o out'
+                bat 'dotnet publish DockerJenkinsDotnetProject/DockerJenkinsDotnetProject.csproj -c Release -o out'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t %ACR_LOGIN_SERVER%/%IMAGE_NAME%:%IMAGE_TAG% -f MyApiApp/Dockerfile MyApiApp"
+                bat "docker build -t ${ACR_LOGIN_SERVER}/${IMAGE_NAME}:${IMAGE_TAG} -f DockerJenkinsDotnetProject/Dockerfile DockerJenkinsDotnetProject"
             }
         }
 
@@ -36,8 +36,8 @@ pipeline {
             steps {
                 withCredentials([azureServicePrincipal(credentialsId: AZURE_CREDENTIALS_ID)]) {
                     bat """
-                    cd %TF_WORKING_DIR%
-                    %TERRAFORM_PATH% init
+                    cd ${TF_WORKING_DIR}
+                    ${TERRAFORM_PATH} init
                     """
                 }
             }
@@ -47,8 +47,8 @@ pipeline {
             steps {
                 withCredentials([azureServicePrincipal(credentialsId: AZURE_CREDENTIALS_ID)]) {
                     bat """
-                    cd %TF_WORKING_DIR%
-                    %TERRAFORM_PATH% plan -out=tfplan
+                    cd ${TF_WORKING_DIR}
+                    ${TERRAFORM_PATH} plan -out=tfplan
                     """
                 }
             }
@@ -58,8 +58,8 @@ pipeline {
             steps {
                 withCredentials([azureServicePrincipal(credentialsId: AZURE_CREDENTIALS_ID)]) {
                     bat """
-                    cd %TF_WORKING_DIR%
-                    %TERRAFORM_PATH% apply -auto-approve tfplan
+                    cd ${TF_WORKING_DIR}
+                    ${TERRAFORM_PATH} apply -auto-approve tfplan
                     """
                 }
             }
@@ -67,25 +67,25 @@ pipeline {
 
         stage('Login to ACR') {
             steps {
-                bat "az acr login --name %ACR_NAME%"
+                bat "az acr login --name ${ACR_NAME}"
             }
         }
 
         stage('Push Docker Image to ACR') {
             steps {
-                bat "docker push %ACR_LOGIN_SERVER%/%IMAGE_NAME%:%IMAGE_TAG%"
+                bat "docker push ${ACR_LOGIN_SERVER}/${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
 
         stage('Get AKS Credentials') {
             steps {
-                bat "az aks get-credentials --resource-group %RESOURCE_GROUP% --name %AKS_CLUSTER% --overwrite-existing"
+                bat "az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER} --overwrite-existing"
             }
         }
 
         stage('Deploy to AKS') {
             steps {
-                bat "kubectl apply -f MyApiApp/k8s/deployment.yaml"
+                bat "kubectl apply -f DockerJenkinsDotnetProject/deployment.yaml"
             }
         }
     }
