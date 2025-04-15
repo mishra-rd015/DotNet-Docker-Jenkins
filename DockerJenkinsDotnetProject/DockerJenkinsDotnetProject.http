@@ -1,0 +1,6 @@
+@DockerJenkinsDotnetProject_HostAddress = http://localhost:5053
+
+GET {{DockerJenkinsDotnetProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
