@@ -6,7 +6,7 @@ pipeline {
         RESOURCE_GROUP = 'dotnet-rg'
         CLUSTER_NAME = 'dotnet-aks'
         IMAGE_NAME = 'myapiapp'
-        TERRAFORM_PATH = 'E:\\Download Brave\\terraform_1.11.3_windows_386\\terraform.exe'
+        TERRAFORM_PATH = '"E:\\Download Brave\\terraform_1.11.3_windows_386\\terraform.exe"'
     }
 
     stages {
