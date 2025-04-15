@@ -10,7 +10,8 @@ pipeline {
         RESOURCE_GROUP = 'dotnet-rg'
         AKS_CLUSTER = 'dotnet-aks'
         TF_WORKING_DIR = 'terraform'
-        TERRAFORM_PATH = 'E:/Download Brave/terraform_1.11.3_windows_386/terraform.exe'
+        // Wrap the path in double quotes to handle the space in folder name
+        TERRAFORM_PATH = '"E:/Download Brave/terraform_1.11.3_windows_386/terraform.exe"'
     }
 
     stages {
