@@ -2,18 +2,19 @@ pipeline {
     agent any
 
     environment {
-        ACR_NAME = 'dotnetacr123'
+        ACR_NAME = 'dotnetacr-rudram123'
         RESOURCE_GROUP = 'dotnet-rg'
         CLUSTER_NAME = 'dotnet-aks'
         IMAGE_NAME = 'myapiapp'
+        TERRAFORM_PATH = 'E:\\Download Brave\\terraform_1.11.3_windows_386\\terraform.exe'
     }
 
     stages {
         stage('Terraform Deploy') {
             steps {
                 dir('terraform') {
-                    bat 'terraform init'
-                    bat 'terraform apply -auto-approve'
+                    bat "${env.TERRAFORM_PATH} init"
+                    bat "${env.TERRAFORM_PATH} apply -auto-approve"
                 }
             }
         }
