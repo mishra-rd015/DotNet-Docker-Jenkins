@@ -1,5 +1,5 @@
 provider "azurerm" {
-  features = {}
+  features {}
 
   # Use variables for Azure credentials
   subscription_id = var.subscription_id
