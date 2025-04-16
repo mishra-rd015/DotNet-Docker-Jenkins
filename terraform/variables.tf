@@ -21,12 +21,12 @@ variable "tenant_id" {
 
 variable "acr_name" {
   description = "Azure Container Registry name (must be globally unique)"
-  default     = "dotnetacrrudram123"  # Changed to alphanumeric name
+  default     = "dotnetacrrudram123"
 }
 
 variable "resource_group_name" {
   description = "The name of the resource group"
-  default     = "dotnet-rg"
+  default     = "dotnet-rg-new"  # Changed to new resource group name
 }
 
 variable "location" {
