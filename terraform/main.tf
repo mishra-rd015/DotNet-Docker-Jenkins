@@ -44,11 +44,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-resource "azurerm_role_assignment" "aks_acr" {
-  principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
-  role_definition_name = "AcrPull"
-  scope                = azurerm_container_registry.acr.id
-}
+# Role assignment removed because it's already done manually to avoid Terraform 403 error
 
 output "acr_login_server" {
   value = azurerm_container_registry.acr.login_server
