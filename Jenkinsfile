@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         ACR_NAME = 'dotnetacrrudram123'
-        AZURE_CREDENTIALS_ID = 'azure-sp-react-pipeline'
+        AZURE_CREDENTIALS_ID = 'azure-service-principal'
         ACR_LOGIN_SERVER = "${ACR_NAME}.azurecr.io"
         IMAGE_NAME = 'myapiapp'
         IMAGE_TAG = 'latest'
