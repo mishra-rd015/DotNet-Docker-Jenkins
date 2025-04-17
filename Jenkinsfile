@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-        ACR_NAME = 'dotnetacrrudram123'  // Updated to alphanumeric ACR name
+        ACR_NAME = 'dotnetacrrudram123'
         AZURE_CREDENTIALS_ID = 'azure-service-principal'
         ACR_LOGIN_SERVER = "${ACR_NAME}.azurecr.io"
         IMAGE_NAME = 'myapiapp'
         IMAGE_TAG = 'latest'
-        RESOURCE_GROUP = 'dotnet-rg-new'  // Updated to new resource group
+        RESOURCE_GROUP = 'dotnet-rg-new'
         AKS_CLUSTER = 'dotnet-aks'
         TF_WORKING_DIR = 'terraform'
         TERRAFORM_PATH = '"E:/Download Brave/terraform_1.11.3_windows_386/terraform.exe"'
@@ -99,7 +99,10 @@ pipeline {
 
         stage('Deploy to AKS') {
             steps {
-                bat "kubectl apply -f DockerJenkinsDotnetProject/deployment.yaml"
+                bat """
+                kubectl apply -f DockerJenkinsDotnetProject/deployment.yaml
+                kubectl apply -f DockerJenkinsDotnetProject/service.yaml
+                """
             }
         }
     }
