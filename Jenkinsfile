@@ -100,8 +100,8 @@ pipeline {
         stage('Deploy to AKS') {
             steps {
                 bat """
-                kubectl apply -f DockerJenkinsDotnetProject/deployment.yaml
-                kubectl apply -f DockerJenkinsDotnetProject/service.yaml
+                kubectl apply -f DockerJenkinsDotnetProject/deployment.yml
+                kubectl apply -f DockerJenkinsDotnetProject/service.yml
                 """
             }
         }
