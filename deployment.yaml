@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapiapp
-        image: <your-acr-name>.azurecr.io/myapiapp:latest
+        image: dotnetacrrudram123.azurecr.io/myapiapp:latest
         ports:
         - containerPort: 80
 ---
